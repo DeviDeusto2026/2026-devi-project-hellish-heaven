@@ -20,23 +20,23 @@ public class Move : MonoBehaviour
 
     private void move()
     {
-        if (Input.GetKey(KeyCode.A))
-        {
-            gameObject.transform.position += Vector3.left * Time.deltaTime * movSpeed;
-        }
-        else if (Input.GetKey(KeyCode.W))
-        {
-            gameObject.transform.position += Vector3.forward * Time.deltaTime * movSpeed;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            gameObject.transform.position += Vector3.back * Time.deltaTime * movSpeed;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            gameObject.transform.position += Vector3.right * Time.deltaTime * movSpeed;
-        }
+        float moveH = 0;
+        float moveV = 0;
+
+        // Detectamos inputs
+        if (Input.GetKey(KeyCode.A)) moveH = -1;
+        if (Input.GetKey(KeyCode.D)) moveH = 1;
+        if (Input.GetKey(KeyCode.W)) moveV = 1;
+        if (Input.GetKey(KeyCode.S)) moveV = -1;
+
+        // Creamos el vector de movimiento
+        Vector3 direccion = new Vector3(moveH, 0, moveV).normalized;
+
+        // APLICAMOS EL MOVIMIENTO F�SICO
+        // Opci�n A: Usando Velocity (movimiento directo pero respeta muros)
+        rb.linearVelocity = new Vector3(direccion.x * movSpeed, rb.linearVelocity.y, direccion.z * movSpeed);
     }
+
 
     private void jump()
     {
