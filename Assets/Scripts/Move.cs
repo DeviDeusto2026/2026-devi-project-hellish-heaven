@@ -4,6 +4,7 @@ public class Move : MonoBehaviour
 {
     public int movSpeed = 15;
     public float fuerzaSalto = 5f;
+    private bool canJump;
 
     private Rigidbody rb;
 
@@ -40,9 +41,25 @@ public class Move : MonoBehaviour
 
     private void jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
             rb.AddForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            canJump = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            canJump = true;
         }
     }
 }
