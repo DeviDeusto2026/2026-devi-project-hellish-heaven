@@ -379,6 +379,8 @@ GameObject:
   - component: {fileID: 7714225290518733873}
   - component: {fileID: 4257765839281322260}
   - component: {fileID: 8919876180653634244}
+  - component: {fileID: 5259286622787035079}
+  - component: {fileID: -1074004691962172641}
   m_Layer: 0
   m_Name: URP - Giant01 - Golem (1)
   m_TagString: Enemigo
@@ -473,6 +475,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &5259286622787035079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556412141851924990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb18c582fbc49524087e5945dd5273ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  vidaMaxima: 100
+--- !u!114 &-1074004691962172641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556412141851924990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71265ab6574efa3468105d6dd7cb5cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
 --- !u!1 &1636769771334225199
 GameObject:
   m_ObjectHideFlags: 0

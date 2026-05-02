@@ -1,18 +1,31 @@
 using UnityEngine;
 using System.Collections;
 
-public class RotacionIdaYVuelta : MonoBehaviour
+public class SwordAttack: MonoBehaviour
 {
     public Transform padre;
     public float duracionTotal = 1.0f;
     private bool estaRotando = false;
+    private float attackDamage = 20f;
+    private PlayerMana sistemaMana;
+
+    private void Start()
+    {
+        sistemaMana = GetComponentInParent<PlayerMana>();
+    }
+
 
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.Mouse0) && !estaRotando)
         {
-            StartCoroutine(GiroMitadYVuelta());
+            if (sistemaMana != null && sistemaMana.ConsumirMana(10))
+            {
+                StartCoroutine(GiroMitadYVuelta());
+            }
         }
+
     }
 
     IEnumerator GiroMitadYVuelta()
@@ -53,8 +66,13 @@ public class RotacionIdaYVuelta : MonoBehaviour
     {
         if (estaRotando && other.CompareTag("Enemigo"))
         {
-            Destroy(other.gameObject);
-            Debug.Log("¡Enemigo derrotado!");
+            EnemyHealth saludEnemigo = other.GetComponent<EnemyHealth>();
+
+
+            if (saludEnemigo != null)
+            {
+                saludEnemigo.RecibirDanyo(attackDamage);
+            }
         }
     }
 }
