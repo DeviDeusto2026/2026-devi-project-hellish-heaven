@@ -34,7 +34,6 @@ public class Move : MonoBehaviour
         Vector3 direccion = new Vector3(moveH, 0, moveV).normalized;
 
         // APLICAMOS EL MOVIMIENTO F�SICO
-        // Opci�n A: Usando Velocity (movimiento directo pero respeta muros)
         rb.linearVelocity = new Vector3(direccion.x * movSpeed, rb.linearVelocity.y, direccion.z * movSpeed);
     }
 

@@ -10,7 +10,6 @@ public class EnemyHealth : MonoBehaviour
         vidaActual = vidaMaxima;
     }
 
-    // Esta función será llamada por la espada
     public void RecibirDanyo(float cantidad)
     {
         vidaActual -= cantidad;
