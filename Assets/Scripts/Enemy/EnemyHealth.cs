@@ -23,7 +23,7 @@ public class EnemyHealth : MonoBehaviour
 
     void Morir()
     {
-        Debug.Log("Enemigo eliminado");
+        FindObjectOfType<EnemySpawner>().EnemigoDerrotado();
         Destroy(gameObject);
     }
 }

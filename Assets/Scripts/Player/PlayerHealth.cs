@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
         ActualizarUI();
     }
 
-    public void RecibirDanio(float cantidad)
+    public void RecibirDanyo(float cantidad)
     {
         vidaActual -= cantidad;
         vidaActual = Mathf.Clamp(vidaActual, 0, vidaMaxima);
