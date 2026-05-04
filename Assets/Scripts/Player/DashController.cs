@@ -93,7 +93,7 @@ public class DashController : MonoBehaviour
     {
         _isDashing = false;
 
-        // Freno suave, no brusco
+        // Freno suave, no brusco, para que el jugador no pierda todo el momentum de golpe
         _rb.linearVelocity = new Vector3(
             _rb.linearVelocity.x / dashFriction,
             _rb.linearVelocity.y,
