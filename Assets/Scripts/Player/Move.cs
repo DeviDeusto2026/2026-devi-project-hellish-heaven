@@ -6,11 +6,13 @@ public class Move : MonoBehaviour
     public float fuerzaSalto = 5f;
     private bool canJump;
 
+    private DashController _dash;
     private Rigidbody rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        _dash = GetComponent<DashController>();
     }
 
     void Update()
@@ -21,6 +23,7 @@ public class Move : MonoBehaviour
 
     private void move()
     {
+        if (GetComponent<DashController>() != null && GetComponent<DashController>().IsDashing) return;
         float moveH = 0;
         float moveV = 0;
 
