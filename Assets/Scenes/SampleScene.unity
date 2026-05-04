@@ -649,10 +649,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471207e50b7f8a346ab421e12440a21b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemigo: {fileID: 1556412141851924990, guid: df33558c73fdcb24f90dfb7bd0eb97d2, type: 3}
-  intervalo: 2
-  puntoSpawn: {fileID: 255776069}
-  radioCuadrado: 3
+  oleadas:
+  - nombre: Oleada 1
+    tipoEnemigo: {fileID: 1556412141851924990, guid: df33558c73fdcb24f90dfb7bd0eb97d2, type: 3}
+    cantidad: 2
+    tiempoEntreSpawns: 2
+  - nombre: Oleada 2
+    tipoEnemigo: {fileID: 1556412141851924990, guid: df33558c73fdcb24f90dfb7bd0eb97d2, type: 3}
+    cantidad: 3
+    tiempoEntreSpawns: 2
+  - nombre: Oleada 3
+    tipoEnemigo: {fileID: 1556412141851924990, guid: df33558c73fdcb24f90dfb7bd0eb97d2, type: 3}
+    cantidad: 5
+    tiempoEntreSpawns: 2
+  puntosDeSpawn:
+  - {fileID: 255776069}
+  - {fileID: 255776069}
+  - {fileID: 255776069}
 --- !u!1 &313488042
 GameObject:
   m_ObjectHideFlags: 0

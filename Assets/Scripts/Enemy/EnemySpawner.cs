@@ -1,34 +1,70 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemigo;
-    public float intervalo = 2.0f;
-    private float cronometro = 0f;
-    public Transform puntoSpawn;
-    public float radioCuadrado = 3f;
-
-    void Update()
+    [System.Serializable]
+    public class Oleada
     {
-        cronometro += Time.deltaTime;
-        if (cronometro >= intervalo)
+        public string nombre;
+        public GameObject tipoEnemigo;
+        public int cantidad;
+        public float tiempoEntreSpawns;
+    }
+
+    public List<Oleada> oleadas;
+    public Transform[] puntosDeSpawn;
+
+    private int oleadaActual = 0;
+    private int enemigosVivos = 0;
+
+    void Start()
+    {
+        if (oleadas.Count > 0)
         {
-            SpawnEnemigo();
-            cronometro = 0f;
+            StartCoroutine(SpawnWave(oleadaActual));
         }
     }
 
-    void SpawnEnemigo()
+    void SpawnEnemy(GameObject prefab)
     {
-        float offsetX = Random.Range(-radioCuadrado, radioCuadrado);
-        float offsetZ = Random.Range(-radioCuadrado, radioCuadrado);
+        Transform punto = puntosDeSpawn[Random.Range(0, puntosDeSpawn.Length)];
+        GameObject enemigo = Instantiate(prefab, punto.position, punto.rotation);
+        enemigosVivos++;
+    }
 
-        Vector3 posicionAleatoria = new Vector3(
-            puntoSpawn.position.x + offsetX,
-            puntoSpawn.position.y, 
-            puntoSpawn.position.z + offsetZ
-        );
+    IEnumerator SpawnWave(int indice)
+    {
+        Debug.Log("Iniciando: " + oleadas[indice].nombre);
+        Oleada wave = oleadas[indice];
 
-        Instantiate(enemigo, posicionAleatoria, puntoSpawn.rotation);
+        for (int i = 0; i < wave.cantidad; i++)
+        {
+            SpawnEnemy(wave.tipoEnemigo);
+            yield return new WaitForSeconds(wave.tiempoEntreSpawns);
+        }
+
+    }
+
+    public void EnemigoDerrotado()
+    {
+        enemigosVivos--;
+
+        if (enemigosVivos <= 0)
+        {
+            enemigosVivos = 0;
+            StopAllCoroutines();
+            oleadaActual++;
+
+            if (oleadaActual < oleadas.Count)
+            {
+                StartCoroutine(SpawnWave(oleadaActual));
+            }
+            else
+            {
+                Debug.Log("¡Nivel Completado!");
+            }
+        }
     }
 }

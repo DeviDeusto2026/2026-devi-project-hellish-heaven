@@ -9,7 +9,7 @@ public class EnemyDamage : MonoBehaviour
             PlayerHealth health = other.GetComponent<PlayerHealth>();
             if (health != null)
             {
-                health.RecibirDanio(10f);
+                health.RecibirDanyo(10f);
             }
         }
     }

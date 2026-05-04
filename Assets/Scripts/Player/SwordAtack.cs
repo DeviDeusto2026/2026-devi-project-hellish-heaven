@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SwordAttack: MonoBehaviour
 {
@@ -9,15 +10,15 @@ public class SwordAttack: MonoBehaviour
     private float attackDamage = 20f;
     private PlayerMana sistemaMana;
 
+    private List<GameObject> enemigosGolpeados = new List<GameObject>();
+
     private void Start()
     {
         sistemaMana = GetComponentInParent<PlayerMana>();
     }
 
-
     void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.Mouse0) && !estaRotando)
         {
             if (sistemaMana != null && sistemaMana.ConsumirMana(10))
@@ -25,21 +26,21 @@ public class SwordAttack: MonoBehaviour
                 StartCoroutine(GiroMitadYVuelta());
             }
         }
-
     }
 
     IEnumerator GiroMitadYVuelta()
     {
         estaRotando = true;
+        enemigosGolpeados.Clear();
 
         float gradosObjetivo = 90f;
         float tiempoFase = duracionTotal / 2f;
 
         yield return MoverRotacion(gradosObjetivo, tiempoFase);
-
         yield return MoverRotacion(-gradosObjetivo, tiempoFase);
 
         estaRotando = false;
+        enemigosGolpeados.Clear();
     }
 
     IEnumerator MoverRotacion(float grados, float tiempo)
@@ -64,14 +65,14 @@ public class SwordAttack: MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (estaRotando && other.CompareTag("Enemigo"))
+        if (estaRotando && other.CompareTag("Enemigo") && !enemigosGolpeados.Contains(other.gameObject))
         {
             EnemyHealth saludEnemigo = other.GetComponent<EnemyHealth>();
-
 
             if (saludEnemigo != null)
             {
                 saludEnemigo.RecibirDanyo(attackDamage);
+                enemigosGolpeados.Add(other.gameObject);
             }
         }
     }

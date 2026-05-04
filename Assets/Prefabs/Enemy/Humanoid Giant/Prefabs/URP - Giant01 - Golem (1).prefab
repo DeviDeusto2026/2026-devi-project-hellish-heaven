@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 4257765839281322260}
   - component: {fileID: 8919876180653634244}
   - component: {fileID: 5259286622787035079}
-  - component: {fileID: -1074004691962172641}
+  - component: {fileID: -8288169459590767505}
   m_Layer: 0
   m_Name: URP - Giant01 - Golem (1)
   m_TagString: Enemigo
@@ -488,7 +488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   vidaMaxima: 100
---- !u!114 &-1074004691962172641
+--- !u!114 &-8288169459590767505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
