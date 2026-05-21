@@ -21,10 +21,7 @@ public class SwordAttack: MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && !estaRotando)
         {
-            if (sistemaMana != null && sistemaMana.ConsumirMana(10))
-            {
-                StartCoroutine(GiroMitadYVuelta());
-            }
+            StartCoroutine(GiroMitadYVuelta());
         }
     }
 
