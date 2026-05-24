@@ -17,4 +17,4 @@ public class WeaponData : ScriptableObject
     public StateManager.PlayerState requiredState;
 }
 
-public enum WeaponType { Lanza, Espada, Daga, Guadana, ArcoCelestial, LatigoSombras }
+public enum WeaponType {Lanza, Espada, Daga, Guadana, Arco}
