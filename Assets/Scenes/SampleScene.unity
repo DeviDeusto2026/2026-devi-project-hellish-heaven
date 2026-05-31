@@ -748,7 +748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMove
   objetivo: {fileID: 977139748}
-  offset: {x: 0, y: 10, z: -10}
+  offset: {x: 0, y: 5, z: -8}
   suavizado: 5
 --- !u!4 &356095354 stripped
 Transform:
@@ -1635,8 +1635,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057225905}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.74944, y: 12.46443, z: -23.51655}
+  m_LocalRotation: {x: -0, y: -0.70372206, z: -0, w: 0.71047544}
+  m_LocalPosition: {x: 23.07, y: 12.46443, z: -4.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1651,7 +1651,7 @@ Transform:
   - {fileID: 400777484}
   - {fileID: 1368184602}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -89.453, z: 0}
 --- !u!1001 &1062037770
 PrefabInstance:
   m_ObjectHideFlags: 0

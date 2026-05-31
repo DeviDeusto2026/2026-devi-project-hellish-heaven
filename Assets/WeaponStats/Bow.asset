@@ -17,7 +17,7 @@ MonoBehaviour:
   prefab: {fileID: 907519944805415233, guid: b91763f12ebea144aa4b91d2980b270d, type: 3}
   damage: 40
   attackRate: 1.5
-  range: 10
+  range: 15
   weaponType: 4
   requiresState: 0
   requiredState: 0

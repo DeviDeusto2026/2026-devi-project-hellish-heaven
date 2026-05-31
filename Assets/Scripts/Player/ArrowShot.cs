@@ -63,10 +63,11 @@ public class ArrowShot : MonoBehaviour
         }
 
         // Instanciar la flecha en la posición del anchor
-        GameObject go = Instantiate(arrow, transform.position, Quaternion.identity);
+        GameObject go = Instantiate(arrow, transform.position, transform.rotation);
 
         // Orientar la flecha hacia donde mira el jugador
         go.transform.forward = jugador.forward;
+        go.transform.Rotate(90, 0, 0, Space.Self);
 
         Arrow scriptFlecha = go.GetComponent<Arrow>();
         if (scriptFlecha != null)
@@ -76,6 +77,6 @@ public class ArrowShot : MonoBehaviour
         if (rb != null)
             rb.AddForce(jugador.forward * force, ForceMode.Impulse);
 
-        Destroy(go, 3f);
+        Destroy(go, 2f);
     }
 }
