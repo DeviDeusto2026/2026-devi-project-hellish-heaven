@@ -4,6 +4,9 @@ public class Move : MonoBehaviour
 {
     public int movSpeed = 15;
     public float fuerzaSalto = 5f;
+    public float velocidadRotacion = 25f;
+    private Quaternion rotacionObjetivo;
+
     private bool canJump;
 
     private DashController _dash;
@@ -23,7 +26,7 @@ public class Move : MonoBehaviour
 
     private void move()
     {
-        if (GetComponent<DashController>() != null && GetComponent<DashController>().IsDashing) return;
+        if (_dash != null && _dash.IsDashing) return;
         float moveH = 0;
         float moveV = 0;
 
@@ -33,10 +36,20 @@ public class Move : MonoBehaviour
         if (Input.GetKey(KeyCode.W)) moveV = 1;
         if (Input.GetKey(KeyCode.S)) moveV = -1;
 
-        // Creamos el vector de movimiento
-        Vector3 direccion = new Vector3(moveH, 0, moveV).normalized;
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            rotacionObjetivo = Quaternion.LookRotation(Vector3.left); // Mira a la izquierda (-1 en X)
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            rotacionObjetivo = Quaternion.LookRotation(Vector3.right); // Mira a la derecha (1 en X)
+        }
 
-        // APLICAMOS EL MOVIMIENTO F�SICO
+        // Aplicamos la rotación suavemente hacia ese objetivo que ya se fijó con el único click
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, velocidadRotacion * Time.deltaTime);
+
+        // Creamos el vector de movimiento y aplicamos velocidad física
+        Vector3 direccion = new Vector3(moveH, 0, moveV).normalized;
         rb.linearVelocity = new Vector3(direccion.x * movSpeed, rb.linearVelocity.y, direccion.z * movSpeed);
     }
 

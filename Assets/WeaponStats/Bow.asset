@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa74b2df69afeb8498002f4096586990, type: 3}
-  m_Name: StraightSword
+  m_Name: Bow
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  weaponName: StraightSword
-  icon: {fileID: 21300000, guid: 789e518168d493d4396ec984b1b5bcb3, type: 3}
-  prefab: {fileID: 8024583501847441683, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
-  damage: 25
+  weaponName: Bow
+  icon: {fileID: 21300000, guid: fb2acd264db5e24428dbf84cf8f0f467, type: 3}
+  prefab: {fileID: 907519944805415233, guid: b91763f12ebea144aa4b91d2980b270d, type: 3}
+  damage: 40
   attackRate: 1.5
-  range: 2
-  weaponType: 0
+  range: 10
+  weaponType: 4
   requiresState: 0
   requiredState: 0

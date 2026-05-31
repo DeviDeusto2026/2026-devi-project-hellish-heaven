@@ -134,7 +134,7 @@ public class WeaponInventory : MonoBehaviour
 
         _currentWeaponGO = Instantiate(weapon.prefab, weaponAnchor);
         _currentWeaponGO.transform.localPosition = Vector3.zero;
-        _currentWeaponGO.transform.localRotation = Quaternion.identity;
+        //_currentWeaponGO.transform.localRotation = Quaternion.identity;
 
         OnWeaponEquipped?.Invoke(weapon, _currentSlot);
     }
