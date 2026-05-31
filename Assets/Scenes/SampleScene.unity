@@ -364,7 +364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: -158.2}
+  m_AnchoredPosition: {x: -50, y: -158.2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &208872746
@@ -748,7 +748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMove
   objetivo: {fileID: 977139748}
-  offset: {x: 0, y: 5, z: -8}
+  offset: {x: 0, y: 10, z: -10}
   suavizado: 5
 --- !u!4 &356095354 stripped
 Transform:
@@ -3313,7 +3313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: -158.2}
+  m_AnchoredPosition: {x: 50, y: -158.2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1908178820
