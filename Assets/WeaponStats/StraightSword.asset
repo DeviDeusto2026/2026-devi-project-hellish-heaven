@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StraightSword
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: StraightSword
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 789e518168d493d4396ec984b1b5bcb3, type: 3}
   prefab: {fileID: 8024583501847441683, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
   damage: 25
   attackRate: 1.4

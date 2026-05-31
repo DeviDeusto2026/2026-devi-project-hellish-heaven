@@ -1,2 +1,18 @@
 fileFormatVersion: 2
 guid: 61cc7741bac1d794bb4c35d810fb6b1a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - slotIcon1: {instanceID: 0}
+  - slotIcon2: {instanceID: 0}
+  - slotIcon3: {instanceID: 0}
+  - slotFrame1: {instanceID: 0}
+  - slotFrame2: {instanceID: 0}
+  - slotFrame3: {instanceID: 0}
+  - spriteVacio: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
