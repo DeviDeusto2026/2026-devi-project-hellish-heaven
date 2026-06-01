@@ -105,9 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad79a105bb4c524fb8fcbd38001d6f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwordAttack
-  datosArma: {fileID: 11400000, guid: 070f2812a7c076d4286bb3d40a848eb7, type: 2}
-  padre: {fileID: 4818472777831986682}
-  duracionTotal: 1
+  weaponData: {fileID: 11400000, guid: 070f2812a7c076d4286bb3d40a848eb7, type: 2}
+  parent: {fileID: 4818472777831986682}
+  totalDuration: 0
 --- !u!54 &5654821212916147367
 Rigidbody:
   m_ObjectHideFlags: 0

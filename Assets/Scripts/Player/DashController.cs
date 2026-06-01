@@ -4,10 +4,11 @@ using UnityEngine;
 public class DashController : MonoBehaviour
 {
     [Header("Dash config")]
-    [SerializeField] private float dashForce = 35f;  
-    [SerializeField] private float dashDuration = 0.25f; 
+
+    [SerializeField] private float dashForce = 35f;
+    [SerializeField] private float dashDuration = 0.25f;
     [SerializeField] private float dashCooldown = 2f;
-    [SerializeField] private float dashFriction = 8f;   
+    [SerializeField] private float dashFriction = 8f;
 
     private Rigidbody _rb;
     private StateManager _state;
@@ -90,7 +91,6 @@ public class DashController : MonoBehaviour
     {
         _isDashing = false;
 
-        // Freno suave, no brusco, para que el jugador no pierda todo el momentum de golpe
         _rb.linearVelocity = new Vector3(
             _rb.linearVelocity.x / dashFriction,
             _rb.linearVelocity.y,

@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    public Transform objetivo;
+    public Transform player;
     public Vector3 offset = new Vector3(0f, 10f, -10f);
 
-    public float suavizado = 5f;
+    public float softness = 5f;
 
     void LateUpdate()
     {
-        if (objetivo == null) return;
+        if (player == null) return;
 
-        Vector3 posicionDeseada = objetivo.position + offset;
+        Vector3 wantedPosition = player.position + offset;
 
-        Vector3 posicionSuavizada = Vector3.Lerp(transform.position, posicionDeseada, suavizado * Time.deltaTime);
+        Vector3 finalPosition = Vector3.Lerp(transform.position, wantedPosition, softness * Time.deltaTime);
 
-        transform.position = posicionSuavizada;
+        transform.position = finalPosition;
     }
 }

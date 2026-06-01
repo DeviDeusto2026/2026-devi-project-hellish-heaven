@@ -2,28 +2,27 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float vidaMaxima = 100f;
-    private float vidaActual;
+    public float maxHealth = 100f;
+    private float actualHealth;
 
     void Start()
     {
-        vidaActual = vidaMaxima;
+        actualHealth = maxHealth;
     }
 
-    public void RecibirDanyo(float cantidad)
+    public void ReceiveDamage(float damageAmount)
     {
-        vidaActual -= cantidad;
-        Debug.Log(gameObject.name + " recibió daño. Vida restante: " + vidaActual);
+        actualHealth -= damageAmount;
 
-        if (vidaActual <= 0)
+        if (actualHealth <= 0)
         {
-            Morir();
+            Die();
         }
     }
 
-    void Morir()
+    void Die()
     {
-        FindFirstObjectByType<EnemySpawner>().EnemigoDerrotado();
+        FindFirstObjectByType<EnemySpawner>().EnemyDefeated();
         Destroy(gameObject);
     }
 }

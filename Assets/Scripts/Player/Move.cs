@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    public int movSpeed = 15;
-    public float fuerzaSalto = 5f;
-    public float velocidadRotacion = 15f;
+    public int moveSpeed = 15;
+    public float jumpForce = 5f;
+    public float rotationSpeed = 15f;
 
     private bool canJump;
     private DashController _dash;
@@ -40,12 +40,10 @@ public class Move : MonoBehaviour
 
         if (input.sqrMagnitude < 0.01f)
         {
-            // Sin input: frenar en X y Z manteniendo Y (gravedad)
             rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
             return;
         }
 
-        // Calcular dirección relativa a la cámara
         Vector3 camForward = _cam.transform.forward;
         Vector3 camRight = _cam.transform.right;
         camForward.y = 0f;
@@ -53,21 +51,19 @@ public class Move : MonoBehaviour
         camForward.Normalize();
         camRight.Normalize();
 
-        Vector3 direccion = (camForward * moveV + camRight * moveH).normalized;
+        Vector3 direction = (camForward * moveV + camRight * moveH).normalized;
 
-        // Mover
         rb.linearVelocity = new Vector3(
-            direccion.x * movSpeed,
+            direction.x * moveSpeed,
             rb.linearVelocity.y,
-            direccion.z * movSpeed
+            direction.z * moveSpeed
         );
 
-        // Rotar el personaje hacia donde se mueve, suavemente
-        Quaternion rotacionObjetivo = Quaternion.LookRotation(direccion);
+        Quaternion objectiveRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
-            rotacionObjetivo,
-            velocidadRotacion * Time.deltaTime
+            objectiveRotation,
+            rotationSpeed * Time.deltaTime
         );
     }
 
@@ -75,7 +71,7 @@ public class Move : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
-            rb.AddForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
 

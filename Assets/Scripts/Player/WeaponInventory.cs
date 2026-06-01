@@ -94,7 +94,7 @@ public class WeaponInventory : MonoBehaviour
 
     private void CycleSlot(int dir)
     {
-        // Buscar el siguiente slot que no esté vacío
+        // Buscar el siguiente slot que no estï¿½ vacï¿½o
         for (int i = 1; i <= MAX_WEAPONS; i++)
         {
             int next = (_currentSlot + dir * i + MAX_WEAPONS) % MAX_WEAPONS;
@@ -114,7 +114,7 @@ public class WeaponInventory : MonoBehaviour
         if (weapon == null || weapon.prefab == null) return;
 
         
-        if (weapon.requiresState && _state.estadoActual != weapon.requiredState)
+        if (weapon.requiresState && _state.actualState != weapon.requiredState)
         {
             Debug.Log($"{weapon.weaponName} requiere estado {weapon.requiredState}");
             return; 

@@ -4,22 +4,22 @@ using System.Collections.Generic;
 public class Arrow : MonoBehaviour
 {
     private float arrowDamage;
-    private List<GameObject> enemigosGolpeados = new List<GameObject>();
-    public void ConfigurarDanyo(float danyoArco)
+    private List<GameObject> hitEnemies = new List<GameObject>();
+    public void configureDamage(float bowDamage)
     {
-        arrowDamage = danyoArco;
+        arrowDamage = bowDamage;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemigo") && !enemigosGolpeados.Contains(other.gameObject))
+        if (other.CompareTag("Enemigo") && !hitEnemies.Contains(other.gameObject))
         {
-            EnemyHealth saludEnemigo = other.GetComponent<EnemyHealth>();
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
 
-            if (saludEnemigo != null)
+            if (enemyHealth != null)
             {
-                saludEnemigo.RecibirDanyo(arrowDamage);
-                enemigosGolpeados.Add(other.gameObject);
+                enemyHealth.ReceiveDamage(arrowDamage);
+                hitEnemies.Add(other.gameObject);
                 Destroy(gameObject);
             }
         }

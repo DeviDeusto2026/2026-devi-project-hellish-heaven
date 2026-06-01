@@ -4,12 +4,19 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+
     public float vidaMaxima = 100f;
     private float vidaActual;
     private float _bonusVidaMaxima = 0f;
 
+
     [Header("UI")]
-    public Slider sliderVida;
+    public Slider hpSlider;
+
+    [Header("Game Over Sistema")]
+    public GameOverManager gameOverScreen;
+
+    private bool isDead = false;
 
     public string escenaMenu = "Menu";
 
@@ -17,37 +24,47 @@ public class PlayerHealth : MonoBehaviour
     {
         vidaActual = vidaMaxima;
 
-        if (sliderVida != null)
+        if (hpSlider != null)
         {
-            sliderVida.minValue = 0f;
-            sliderVida.maxValue = vidaMaxima;
-            sliderVida.value = vidaActual;
+            hpSlider.minValue = 0f;
+            hpSlider.maxValue = vidaMaxima;
+            hpSlider.value = vidaActual;
         }
     }
 
-    public void RecibirDanyo(float cantidad)
+    public void ReceiveDamage(float damageAmount)
     {
-        vidaActual -= cantidad;
-        vidaActual = Mathf.Clamp(vidaActual, 0, vidaMaxima);
-        ActualizarUI();
+        if (isDead) return;
+
+        vidaActual -= damageAmount;
+        vidaActual = Mathf.Clamp(vidaActual, 0, maxHealth);
+        UpdateUI();
 
         if (vidaActual <= 0)
         {
-            Morir();
+            Die();
         }
     }
-    public void Morir()
+    private void Die()
     {
-        Debug.Log("Jugador Muerto");
-        SceneManager.LoadScene(escenaMenu);
+        isDead = true;
+
+        if (gameOverScreen != null)
+        {
+            gameOverScreen.ActivateGameOverPanel();
+        }
+        else
+        {
+            Debug.LogWarning("Falta asignar 'pantallaGameOver' en el inspector de PlayerHealth.");
+        }
     }
 
-    void ActualizarUI()
+    void UpdateUI()
     {
-        if (sliderVida != null)
+        if (HpSlider != null)
         {
-            sliderVida.maxValue = vidaMaxima;
-            sliderVida.value = vidaActual;
+            hpSlider.maxValue = vidaMaxima;
+            hpSlider.value = vidaActual;
         }
     }
 
@@ -59,10 +76,10 @@ public class PlayerHealth : MonoBehaviour
         vidaMaxima += _bonusVidaMaxima;
         vidaActual += _bonusVidaMaxima;
         vidaActual = Mathf.Clamp(vidaActual, 0, vidaMaxima);
-        if (sliderVida != null)
-            sliderVida.maxValue = 1f;
+        if (hpSlider != null)
+            hpSlider.maxValue = 1f;
         Debug.Log($"vidaActual: {vidaActual} | vidaMaxima: {vidaMaxima} | slider: {vidaActual / vidaMaxima}");
-        ActualizarUI();
+        UpdateUI();
     }
 
     private float _regenVida = 0f;
@@ -78,7 +95,7 @@ public class PlayerHealth : MonoBehaviour
         {
             vidaActual += _regenVida * Time.deltaTime;
             vidaActual = Mathf.Clamp(vidaActual, 0, vidaMaxima);
-            ActualizarUI();
+            UpdateUI();
         }
     }
 }

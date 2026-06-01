@@ -4,91 +4,88 @@ using System.Collections.Generic;
 
 public class SwordAttack: MonoBehaviour
 {
-    public WeaponData datosArma;
+    public WeaponData weaponData;
 
-    public Transform padre;
+    public Transform parent;
 
-    public float duracionTotal;
-    private bool estaRotando = false;
+    private float totalDuration;
+    private bool isRotating = false;
     private float attackDamage;
-    private PlayerMana sistemaMana;
 
-    private List<GameObject> enemigosGolpeados = new List<GameObject>();
+    private List<GameObject> hitEnemies = new List<GameObject>();
 
     private void Start()
     {
-        sistemaMana = GetComponentInParent<PlayerMana>();
-
-        if (datosArma != null)
+        if (weaponData != null)
         {
-            CargarDatosDeScriptableObject(datosArma);
+            LoadWeaponData(weaponData);
         }
     }
 
 
-    private void CargarDatosDeScriptableObject(WeaponData datos)
+    private void LoadWeaponData(WeaponData data)
     {
-        attackDamage = datos.damage;
+        attackDamage = data.damage;
 
-        if (datos.attackRate > 0)
+        if (data.attackRate > 0)
         {
-            duracionTotal = 1f / datos.attackRate;
+            totalDuration = 1f / data.attackRate;
         }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !estaRotando)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !isRotating)
         {
-            StartCoroutine(GiroMitadYVuelta());
+            StartCoroutine(SlashRotation());
         }
     }
 
-    IEnumerator GiroMitadYVuelta()
+    IEnumerator SlashRotation()
     {
-        estaRotando = true;
-        enemigosGolpeados.Clear();
+        isRotating = true;
+        hitEnemies.Clear();
 
-        float gradosObjetivo = 90f;
-        float tiempoFase = duracionTotal / 2f;
+        float objectiveRotation = 90f;
+        float faseTime = totalDuration / 2f;
 
-        yield return MoverRotacion(gradosObjetivo, tiempoFase);
-        yield return MoverRotacion(-gradosObjetivo, tiempoFase);
+        yield return MoveRotation(objectiveRotation, faseTime);
+        yield return MoveRotation(-objectiveRotation, faseTime);
 
-        estaRotando = false;
-        enemigosGolpeados.Clear();
+        isRotating = false;
+        hitEnemies.Clear();
     }
 
-    IEnumerator MoverRotacion(float grados, float tiempo)
+    IEnumerator MoveRotation(float grades, float time)
     {
-        float gradosInvertidos = 0f;
-        float velocidad = grados / tiempo;
+        float inverdedGrades = 0f;
+        float speed = grades / time;
 
-        while (Mathf.Abs(gradosInvertidos) < Mathf.Abs(grados))
+        while (Mathf.Abs(inverdedGrades) < Mathf.Abs(grades))
         {
-            float paso = velocidad * Time.deltaTime;
+            float paso = speed * Time.deltaTime;
 
-            if (Mathf.Abs(gradosInvertidos + paso) > Mathf.Abs(grados))
+            if (Mathf.Abs(inverdedGrades + paso) > Mathf.Abs(grades))
             {
-                paso = grados - gradosInvertidos;
+                paso = grades - inverdedGrades;
             }
 
-            transform.RotateAround(padre.position, Vector3.up, paso);
-            gradosInvertidos += paso;
+            transform.RotateAround(parent.position, Vector3.up, paso);
+            inverdedGrades += paso;
             yield return null;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (estaRotando && other.CompareTag("Enemigo") && !enemigosGolpeados.Contains(other.gameObject))
+        if (isRotating && other.CompareTag("Enemigo") && !hitEnemies.Contains(other.gameObject))
         {
-            EnemyHealth saludEnemigo = other.GetComponent<EnemyHealth>();
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
 
-            if (saludEnemigo != null)
+            if (enemyHealth != null)
             {
-                saludEnemigo.RecibirDanyo(attackDamage);
-                enemigosGolpeados.Add(other.gameObject);
+                enemyHealth.ReceiveDamage(attackDamage);
+                hitEnemies.Add(other.gameObject);
             }
         }
     }

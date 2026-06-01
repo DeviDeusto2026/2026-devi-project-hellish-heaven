@@ -2,27 +2,27 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    Transform jugador;    
-    public float velocidad = 3f; 
+    Transform player;    
+    public float speed = 3f; 
 
 
-    private float alturaInicial;
+    private float initialHeight;
 
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null) jugador = player.transform;
-        alturaInicial = transform.position.y;
+        if (player != null) this.player = player.transform;
+        initialHeight = transform.position.y;
     }
 
     void Update()
     {
-        if (jugador != null)
+        if (player != null)
         {
-            Vector3 posicionObjetivoLook = new Vector3(jugador.position.x, transform.position.y, jugador.position.z);
+            Vector3 posicionObjetivoLook = new Vector3(player.position.x, transform.position.y, player.position.z);
             transform.LookAt(posicionObjetivoLook);
-            transform.position = Vector3.MoveTowards(transform.position, jugador.position, velocidad * Time.deltaTime);
-            transform.position = new Vector3(transform.position.x, alturaInicial, transform.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            transform.position = new Vector3(transform.position.x, initialHeight, transform.position.z);
         }
     }
 }
