@@ -14,11 +14,11 @@ public class WeaponHUD : MonoBehaviour
     public Image slotFrame3;
 
     [Header("Sprite cuando el slot está vacío")]
-    public Sprite spriteVacio;
+    public Sprite emptySprite;
 
     [Header("Colores")]
-    public Color colorSeleccionado = Color.white;
-    public Color colorNoSeleccionado = new Color(0.4f, 0.4f, 0.4f, 1f);
+    public Color selectedColor = Color.white;
+    public Color notSelectedColor = new Color(0.4f, 0.4f, 0.4f, 1f);
 
     private Image[] _icons;
     private Image[] _frames;
@@ -30,33 +30,33 @@ public class WeaponHUD : MonoBehaviour
     }
     void OnEnable()
     {
-        WeaponInventory.OnInventoryChanged += RefrescarSlots;
-        WeaponInventory.OnWeaponEquipped += ResaltarSlot;
+        WeaponInventory.OnInventoryChanged += RefreshSlots;
+        WeaponInventory.OnWeaponEquipped += HighlightSlot;
     }
 
     void OnDisable()
     {
-        WeaponInventory.OnInventoryChanged -= RefrescarSlots;
-        WeaponInventory.OnWeaponEquipped -= ResaltarSlot;
+        WeaponInventory.OnInventoryChanged -= RefreshSlots;
+        WeaponInventory.OnWeaponEquipped -= HighlightSlot;
     }
 
-    private void RefrescarSlots(WeaponData[] slots)
+    private void RefreshSlots(WeaponData[] slots)
     {
         for (int i = 0; i < 3; i++)
         {
             if (_icons[i] == null) continue;
 
-            bool tieneArma = slots[i] != null && slots[i].icon != null;
-            _icons[i].sprite = tieneArma ? slots[i].icon : spriteVacio;
+            bool hasWeapon = slots[i] != null && slots[i].icon != null;
+            _icons[i].sprite = hasWeapon ? slots[i].icon : emptySprite;
         }
     }
 
-    private void ResaltarSlot(WeaponData weapon, int slotActivo)
+    private void HighlightSlot(WeaponData weapon, int activeSlot)
     {
         for (int i = 0; i < 3; i++)
         {
             if (_frames[i] == null) continue;
-            _frames[i].color = i == slotActivo ? colorSeleccionado : colorNoSeleccionado;
+            _frames[i].color = i == activeSlot ? selectedColor : notSelectedColor;
         }
     }
 }

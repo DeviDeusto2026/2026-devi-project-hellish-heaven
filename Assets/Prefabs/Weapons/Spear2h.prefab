@@ -96,9 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ea7cee117122246b6d4b889670d99b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpearAttack
-  datosArma: {fileID: 11400000, guid: 4557621527e575f48ae106f1c75ea3b9, type: 2}
-  padre: {fileID: 3146976177095637037}
-  duracionTotal: 1
+  weaponData: {fileID: 11400000, guid: 4557621527e575f48ae106f1c75ea3b9, type: 2}
+  parent: {fileID: 3146976177095637037}
+  totalDuration: 1
 --- !u!65 &2817659850577616505
 BoxCollider:
   m_ObjectHideFlags: 0

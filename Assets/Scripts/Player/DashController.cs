@@ -4,10 +4,10 @@ using UnityEngine;
 public class DashController : MonoBehaviour
 {
     [Header("Dash config")]
-    [SerializeField] private float dashForce = 35f;   // era dashSpeed, ahora más alto
-    [SerializeField] private float dashDuration = 0.25f; // un poco más largo
+    [SerializeField] private float dashForce = 35f;
+    [SerializeField] private float dashDuration = 0.25f;
     [SerializeField] private float dashCooldown = 2f;
-    [SerializeField] private float dashFriction = 8f;    // qué tan rápido frena al acabar
+    [SerializeField] private float dashFriction = 8f;
 
     private Rigidbody _rb;
     private StateManager _state;
@@ -40,8 +40,7 @@ public class DashController : MonoBehaviour
             }
             else
             {
-                // La velocidad decae progresivamente hacia el final del dash
-                float progress = 1f - (_dashTimer / dashDuration); // 0 al inicio, 1 al final
+                float progress = 1f - (_dashTimer / dashDuration);
                 float currentSpeed = Mathf.Lerp(dashForce, 0f, progress * progress);
 
                 _rb.linearVelocity = new Vector3(
@@ -52,7 +51,6 @@ public class DashController : MonoBehaviour
             }
         }
 
-        // Input: mismo sistema legacy que usa tu Move.cs
         if (Input.GetKeyDown(KeyCode.LeftShift))
             TryDash();
     }
@@ -77,10 +75,8 @@ public class DashController : MonoBehaviour
         Vector3 inputDir = new Vector3(moveH, 0f, moveV).normalized;
         _dashDir = inputDir.sqrMagnitude > 0.01f ? inputDir : transform.forward;
 
-        // Cancelar velocidad previa para que el dash se sienta limpio
         _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
-
-        // Aplicar impulso inicial fuerte
+        
         _rb.AddForce(_dashDir * dashForce, ForceMode.VelocityChange);
 
         _isDashing = true;
@@ -93,7 +89,6 @@ public class DashController : MonoBehaviour
     {
         _isDashing = false;
 
-        // Freno suave, no brusco, para que el jugador no pierda todo el momentum de golpe
         _rb.linearVelocity = new Vector3(
             _rb.linearVelocity.x / dashFriction,
             _rb.linearVelocity.y,

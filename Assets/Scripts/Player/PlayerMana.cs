@@ -3,34 +3,34 @@ using UnityEngine.UI;
 
 public class PlayerMana : MonoBehaviour
 {
-    public float manaMaximo = 100f;
-    private float manaActual;
+    public float maxMana = 100f;
+    private float actualMana;
 
     [Header("Configuración")]
-    public float regeneracionPorSegundo = 5f;
-    public Slider sliderMana;
+    public float regenerationPerSecond = 5f;
+    public Slider manaSlider;
 
     void Start()
     {
-        manaActual = manaMaximo;
-        ActualizarUI();
+        actualMana = maxMana;
+        UpdateUI();
     }
 
     void Update()
     {
-        if (manaActual < manaMaximo)
+        if (actualMana < maxMana)
         {
-            manaActual += regeneracionPorSegundo * Time.deltaTime;
-            ActualizarUI();
+            actualMana += regenerationPerSecond * Time.deltaTime;
+            UpdateUI();
         }
     }
 
-    public bool ConsumirMana(float cantidad)
+    public bool ConsumeMana(float manaConsumption)
     {
-        if (manaActual >= cantidad)
+        if (actualMana >= manaConsumption)
         {
-            manaActual -= cantidad;
-            ActualizarUI();
+            actualMana -= manaConsumption;
+            UpdateUI();
             return true;
         }
         else
@@ -40,11 +40,11 @@ public class PlayerMana : MonoBehaviour
         }
     }
 
-    void ActualizarUI()
+    void UpdateUI()
     {
-        if (sliderMana != null)
+        if (manaSlider != null)
         {
-            sliderMana.value = manaActual / manaMaximo;
+            manaSlider.value = actualMana / maxMana;
         }
     }
 }

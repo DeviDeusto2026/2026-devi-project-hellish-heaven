@@ -93,6 +93,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e7257eb14776b48a9bb807b22a9791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shooting
-  datosArma: {fileID: 11400000, guid: 8bde58aa12ea73148aaf77b5c9b3ea85, type: 2}
+  weaponData: {fileID: 11400000, guid: 8bde58aa12ea73148aaf77b5c9b3ea85, type: 2}
   arrow: {fileID: 5138844950679424127, guid: fd4e7e07490283c48a3ec07e81377cd1, type: 3}
-  costeMana: 5
+  manaCost: 10

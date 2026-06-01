@@ -5,61 +5,61 @@ using System.Collections.Generic;
 public class EnemySpawner : MonoBehaviour
 {
     [System.Serializable]
-    public class Oleada
+    public class Wave
     {
-        public string nombre;
-        public GameObject tipoEnemigo;
-        public int cantidad;
-        public float tiempoEntreSpawns;
+        public string waveName;
+        public GameObject enemyType;
+        public int enemyNumber;
+        public float spawnCooldown;
     }
 
-    public List<Oleada> oleadas;
-    public Transform[] puntosDeSpawn;
+    public List<Wave> waves;
+    public Transform[] spawnPoints;
 
-    private int oleadaActual = 0;
-    private int enemigosVivos = 0;
+    private int actualWave = 0;
+    private int remainingEnemies = 0;
 
     void Start()
     {
-        if (oleadas.Count > 0)
+        if (waves.Count > 0)
         {
-            StartCoroutine(SpawnWave(oleadaActual));
+            StartCoroutine(SpawnWave(actualWave));
         }
     }
 
-    void SpawnEnemy(GameObject prefab)
+    void SpawnEnemy(GameObject enemyPrefab)
     {
-        Transform punto = puntosDeSpawn[Random.Range(0, puntosDeSpawn.Length)];
-        GameObject enemigo = Instantiate(prefab, punto.position, punto.rotation);
-        enemigosVivos++;
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        remainingEnemies++;
     }
 
-    IEnumerator SpawnWave(int indice)
+    IEnumerator SpawnWave(int index)
     {
-        Debug.Log("Iniciando: " + oleadas[indice].nombre);
-        Oleada wave = oleadas[indice];
+        Debug.Log("Iniciando: " + waves[index].waveName);
+        Wave wave = waves[index];
 
-        for (int i = 0; i < wave.cantidad; i++)
+        for (int i = 0; i < wave.enemyNumber; i++)
         {
-            SpawnEnemy(wave.tipoEnemigo);
-            yield return new WaitForSeconds(wave.tiempoEntreSpawns);
+            SpawnEnemy(wave.enemyType);
+            yield return new WaitForSeconds(wave.spawnCooldown);
         }
 
     }
 
-    public void EnemigoDerrotado()
+    public void EnemyDefeated()
     {
-        enemigosVivos--;
+        remainingEnemies--;
 
-        if (enemigosVivos <= 0)
+        if (remainingEnemies <= 0)
         {
-            enemigosVivos = 0;
+            remainingEnemies = 0;
             StopAllCoroutines();
-            oleadaActual++;
+            actualWave++;
 
-            if (oleadaActual < oleadas.Count)
+            if (actualWave < waves.Count)
             {
-                StartCoroutine(SpawnWave(oleadaActual));
+                StartCoroutine(SpawnWave(actualWave));
             }
             else
             {

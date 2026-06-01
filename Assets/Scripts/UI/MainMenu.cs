@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class MenuPrincipal : MonoBehaviour
 {
-    public void Jugar()
+    public void Play()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("GameScene");
     }
 
-    public void Salir()
+    public void Exit()
     {
         Debug.Log("Saliendo del juego...");
         Application.Quit(); 

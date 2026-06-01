@@ -119,7 +119,7 @@ public class WeaponInventory : MonoBehaviour
         if (weapon == null || weapon.prefab == null) return;
 
         // Si el arma requiere un estado y no estamos en él, no instanciar
-        if (weapon.requiresState && _state.estadoActual != weapon.requiredState)
+        if (weapon.requiresState && _state.actualState != weapon.requiredState)
         {
             Debug.Log($"{weapon.weaponName} requiere estado {weapon.requiredState}");
             return;

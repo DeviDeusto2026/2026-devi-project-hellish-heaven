@@ -1,50 +1,49 @@
 using UnityEngine;
-
 using UnityEngine.UI;
 
 public class HUDStateManager : MonoBehaviour
 {
     [Header("Referencias del HUD")]
-    public Image iconoEstadoUI;
+    public Image stateIconUI;
 
     [Header("Sprites de Estado")]
-    public Sprite spriteVacio;
-    public Sprite spriteAngel;
-    public Sprite spriteDemonio;
+    public Sprite noStateSprite;
+    public Sprite angelSprite;
+    public Sprite demonSprite;
 
     private void Awake() {
-        if (iconoEstadoUI == null)
+        if (stateIconUI == null)
         {
-            iconoEstadoUI = GetComponent<Image>();
+            stateIconUI = GetComponent<Image>();
         }
     }
 
     private void Start() {
-        if (iconoEstadoUI != null && spriteVacio != null)
+        if (stateIconUI != null && noStateSprite != null)
         {
-            iconoEstadoUI.sprite = spriteVacio;
+            stateIconUI.sprite = noStateSprite;
         }
     }
 
     private void OnEnable()
     {
-        StateManager.OnStateChanged += CambiarIcono;
+        StateManager.OnStateChanged += ChangeIcon;
     }
 
     private void OnDisable()
     {
-        StateManager.OnStateChanged -= CambiarIcono;
+        StateManager.OnStateChanged -= ChangeIcon;
     }
 
-    private void CambiarIcono(StateManager.PlayerState nuevoEstado) {
-        if (iconoEstadoUI == null) return;
+    private void ChangeIcon(StateManager.PlayerState newState) {
+        if (stateIconUI == null) return;
 
-        switch (nuevoEstado) {
+        switch (newState) {
             case StateManager.PlayerState.Angel:
-                iconoEstadoUI.sprite = spriteAngel;
+                stateIconUI.sprite = angelSprite;
                 break;
-            case StateManager.PlayerState.Demonio:
-                iconoEstadoUI.sprite = spriteDemonio;
+            case StateManager.PlayerState.Demon:
+                stateIconUI.sprite = demonSprite;
                 break;
         }
     }

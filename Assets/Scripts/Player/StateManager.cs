@@ -3,23 +3,23 @@ using UnityEngine;
 
 public class StateManager: MonoBehaviour
 {
-    public enum PlayerState { Normal, Angel, Demonio }
-    public PlayerState estadoActual = PlayerState.Normal;
+    public enum PlayerState { Normal, Angel, Demon }
+    public PlayerState actualState = PlayerState.Normal;
     public static event Action<PlayerState> OnStateChanged;
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            AlternarEstado();
+            ChangeState();
         }
     }
 
-    void AlternarEstado() {
-        if (estadoActual == PlayerState.Angel)
-            estadoActual = PlayerState.Demonio;
+    void ChangeState() {
+        if (actualState == PlayerState.Angel)
+            actualState = PlayerState.Demon;
         else
-            estadoActual = PlayerState.Angel;
-        OnStateChanged?.Invoke(estadoActual);
-        Debug.Log("Estado actual: " + estadoActual);
+            actualState = PlayerState.Angel;
+        OnStateChanged?.Invoke(actualState);
+        Debug.Log("Estado actual: " + actualState);
     }
 }

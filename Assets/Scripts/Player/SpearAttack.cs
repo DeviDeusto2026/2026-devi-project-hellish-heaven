@@ -4,97 +4,95 @@ using System.Collections.Generic;
 
 public class SpearAttack : MonoBehaviour
 {
-    public WeaponData datosArma;
+    public WeaponData weaponData;
 
-    public Transform padre;
+    public Transform parent;
 
-    public float duracionTotal = 1.0f;
-    private bool estaAtacando = false;
+    private float totalDuration;
+    private bool isAttacking = false;
     private float attackDamage;
-    private PlayerMana sistemaMana;
 
-    private List<GameObject> enemigosGolpeados = new List<GameObject>();
+    private List<GameObject> hitEnemies = new List<GameObject>();
 
-    private Vector3 posicionInicialLocal;
+    private Vector3 initialPosition;
 
     private void Start()
     {
-        sistemaMana = GetComponentInParent<PlayerMana>();
-        posicionInicialLocal = transform.localPosition;
+        initialPosition = transform.localPosition;
 
-        if (datosArma != null)
+        if (weaponData != null)
         {
-            CargarDatosDeScriptableObject(datosArma);
+            LoadWeaponData(weaponData);
         }
     }
 
-    private void CargarDatosDeScriptableObject(WeaponData datos)
+    private void LoadWeaponData(WeaponData data)
     {
-        attackDamage = datos.damage;
+        attackDamage = data.damage;
 
-        if (datos.attackRate > 0)
+        if (data.attackRate > 0)
         {
-            duracionTotal = 1f / datos.attackRate;
+            totalDuration = 1f / data.attackRate;
         }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !estaAtacando)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking)
         {
-            StartCoroutine(EstocadaAlanteYAtras());
+            StartCoroutine(backForwardAttack());
         }
     }
 
-    IEnumerator EstocadaAlanteYAtras()
+    IEnumerator backForwardAttack()
     {
-        estaAtacando = true;
-        enemigosGolpeados.Clear();
+        isAttacking = true;
+        hitEnemies.Clear();
 
-        float distanciaObjetivo = (datosArma != null) ? datosArma.range : 2f;
-        float tiempoFase = duracionTotal / 2f;
+        float objectiveDistance = (weaponData != null) ? weaponData.range : 2f;
+        float faseDuration = totalDuration / 2f;
 
-        yield return MoverEstocada(distanciaObjetivo, tiempoFase);
+        yield return MoveWeapon(objectiveDistance, faseDuration);
 
-        yield return MoverEstocada(-distanciaObjetivo, tiempoFase);
+        yield return MoveWeapon(-objectiveDistance, faseDuration);
 
-        transform.localPosition = posicionInicialLocal;
+        transform.localPosition = initialPosition;
 
-        estaAtacando = false;
-        enemigosGolpeados.Clear();
+        isAttacking = false;
+        hitEnemies.Clear();
     }
 
-    IEnumerator MoverEstocada(float distancia, float tiempo)
+    IEnumerator MoveWeapon(float distance, float time)
     {
-        float distanciaRecorrida = 0f;
-        float velocidad = distancia / tiempo;
+        float travelledDistance = 0f;
+        float speed = distance / time;
 
-        while (Mathf.Abs(distanciaRecorrida) < Mathf.Abs(distancia))
+        while (Mathf.Abs(travelledDistance) < Mathf.Abs(distance))
         {
-            float paso = velocidad * Time.deltaTime;
+            float paso = speed * Time.deltaTime;
 
-            if (Mathf.Abs(distanciaRecorrida + paso) > Mathf.Abs(distancia))
+            if (Mathf.Abs(travelledDistance + paso) > Mathf.Abs(distance))
             {
-                paso = distancia - distanciaRecorrida;
+                paso = distance - travelledDistance;
             }
 
             transform.Translate(Vector3.up * paso, Space.Self);
 
-            distanciaRecorrida += paso;
+            travelledDistance += paso;
             yield return null;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (estaAtacando && other.CompareTag("Enemigo") && !enemigosGolpeados.Contains(other.gameObject))
+        if (isAttacking && other.CompareTag("Enemigo") && !hitEnemies.Contains(other.gameObject))
         {
-            EnemyHealth saludEnemigo = other.GetComponent<EnemyHealth>();
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
 
-            if (saludEnemigo != null)
+            if (enemyHealth != null)
             {
-                saludEnemigo.RecibirDanyo(attackDamage);
-                enemigosGolpeados.Add(other.gameObject);
+                enemyHealth.ReceiveDamage(attackDamage);
+                hitEnemies.Add(other.gameObject);
             }
         }
     }
