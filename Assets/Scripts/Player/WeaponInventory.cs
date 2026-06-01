@@ -5,11 +5,8 @@ public class WeaponInventory : MonoBehaviour
 {
     public const int MAX_WEAPONS = 3;
 
-    [Header("Armas iniciales (opcional)")]
     [SerializeField] private WeaponData[] startingWeapons;
 
-    // Punto de anclaje: un GameObject vacío hijo del jugador
-    [Header("Ancla del arma (GameObject vacío hijo del jugador)")]
     [SerializeField] private Transform weaponAnchor;
 
     private WeaponData[] _slots = new WeaponData[MAX_WEAPONS];
@@ -113,19 +110,18 @@ public class WeaponInventory : MonoBehaviour
 
     private void EquipCurrentWeapon()
     {
-        if (_currentWeaponGO != null) Destroy(_currentWeaponGO);
-
         WeaponData weapon = _slots[_currentSlot];
         if (weapon == null || weapon.prefab == null) return;
 
-        // Si el arma requiere un estado y no estamos en él, no instanciar
+        
         if (weapon.requiresState && _state.estadoActual != weapon.requiredState)
         {
             Debug.Log($"{weapon.weaponName} requiere estado {weapon.requiredState}");
-            return;
+            return; 
         }
 
-        // Sin rig: instanciar en el anchor manual
+        if (_currentWeaponGO != null) Destroy(_currentWeaponGO);
+
         if (weaponAnchor == null)
         {
             Debug.LogWarning("WeaponAnchor no asignado en el Inspector.");
@@ -134,8 +130,6 @@ public class WeaponInventory : MonoBehaviour
 
         _currentWeaponGO = Instantiate(weapon.prefab, weaponAnchor);
         _currentWeaponGO.transform.localPosition = Vector3.zero;
-        //_currentWeaponGO.transform.localRotation = Quaternion.identity;
-
         OnWeaponEquipped?.Invoke(weapon, _currentSlot);
     }
 
@@ -151,7 +145,6 @@ public class WeaponInventory : MonoBehaviour
         }
         else
         {
-            // Si no hay modelo instanciado, intentar equipar ahora
             if (_currentWeaponGO == null)
                 EquipCurrentWeapon();
             else

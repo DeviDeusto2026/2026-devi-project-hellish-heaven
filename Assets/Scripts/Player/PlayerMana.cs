@@ -5,6 +5,7 @@ public class PlayerMana : MonoBehaviour
 {
     public float manaMaximo = 100f;
     private float manaActual;
+    private float _bonusManaMaximo = 0f;
 
     [Header("Configuración")]
     public float regeneracionPorSegundo = 5f;
@@ -46,5 +47,13 @@ public class PlayerMana : MonoBehaviour
         {
             sliderMana.value = manaActual / manaMaximo;
         }
+    }
+    public void AplicarBonusMana(float bonus)
+    {
+        manaMaximo -= _bonusManaMaximo;
+        _bonusManaMaximo = bonus;
+        manaMaximo += _bonusManaMaximo;
+        manaActual = Mathf.Clamp(manaActual, 0, manaMaximo);
+        ActualizarUI();
     }
 }
