@@ -65,6 +65,7 @@ public class EnemySpawner : MonoBehaviour
             else
             {
                 Debug.Log("¡Nivel Completado!");
+                SceneManager.LoadScene("LevelCompleted");
             }
         }
     }

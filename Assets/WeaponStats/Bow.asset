@@ -19,5 +19,5 @@ MonoBehaviour:
   attackRate: 1.5
   range: 15
   weaponType: 4
-  requiresState: 0
-  requiredState: 0
+  requiresState: 1
+  requiredState: 1

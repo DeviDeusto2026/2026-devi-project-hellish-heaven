@@ -13,9 +13,6 @@ public class PlayerHealth : MonoBehaviour
     [Header("UI")]
     public Slider hpSlider;
 
-    [Header("Game Over Sistema")]
-    public GameOverManager gameOverScreen;
-
     private bool isDead = false;
 
     public string escenaMenu = "Menu";
@@ -37,7 +34,7 @@ public class PlayerHealth : MonoBehaviour
         if (isDead) return;
 
         vidaActual -= damageAmount;
-        vidaActual = Mathf.Clamp(vidaActual, 0, maxHealth);
+        vidaActual = Mathf.Clamp(vidaActual, 0, vidaMaxima);
         UpdateUI();
 
         if (vidaActual <= 0)
@@ -49,19 +46,12 @@ public class PlayerHealth : MonoBehaviour
     {
         isDead = true;
 
-        if (gameOverScreen != null)
-        {
-            gameOverScreen.ActivateGameOverPanel();
-        }
-        else
-        {
-            Debug.LogWarning("Falta asignar 'pantallaGameOver' en el inspector de PlayerHealth.");
-        }
+        SceneManager.LoadScene("GameOver");
     }
 
     void UpdateUI()
     {
-        if (HpSlider != null)
+        if (hpSlider != null)
         {
             hpSlider.maxValue = vidaMaxima;
             hpSlider.value = vidaActual;

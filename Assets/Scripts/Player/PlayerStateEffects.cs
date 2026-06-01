@@ -39,7 +39,7 @@ public class PlayerStateEffects : MonoBehaviour
 
         switch (nuevoEstado)
         {
-            case StateManager.PlayerState.Demonio:
+            case StateManager.PlayerState.Demon:
                 _health.AplicarBonusVida(bonusVidaDemonio);
                 _mana.AplicarBonusMana(bonusManaDemonio);
                 Debug.Log("Demonio: +vida, +mana");
